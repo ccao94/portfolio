@@ -40,12 +40,10 @@
 
         body {
             font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-            background-color: var(--bg);
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 28px 28px;
+            background: var(--bg);
             color: var(--text);
             line-height: 1.7;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            transition: background 0.4s ease, color 0.4s ease;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -72,6 +70,14 @@
 
         [data-theme="dark"] nav {
             background: rgba(17, 17, 16, 0.85);
+        }
+
+        nav.nav-scrolled {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] nav.nav-scrolled {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
         }
 
         nav .wrap {
@@ -169,9 +175,7 @@
             line-height: 1.15;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.7s ease forwards 0.2s;
+            visibility: hidden;
         }
 
         .hero-text .subtitle {
@@ -179,9 +183,7 @@
             color: var(--text-light);
             margin-bottom: 2rem;
             max-width: 440px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.7s ease forwards 0.4s;
+            visibility: hidden;
         }
 
         .hero-meta {
@@ -191,9 +193,10 @@
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.8rem;
             color: var(--text-lighter);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.7s ease forwards 0.55s;
+        }
+
+        .hero-meta > span {
+            visibility: hidden;
         }
 
         .hero-meta span {
@@ -214,9 +217,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.7s ease forwards 0.65s;
+            visibility: hidden;
         }
 
         .hero-links a {
@@ -246,8 +247,7 @@
         .hero-visual {
             display: flex;
             justify-content: flex-end;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards 0.5s;
+            visibility: hidden;
         }
 
         .photo-frame {
@@ -275,13 +275,6 @@
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.8rem;
             color: var(--text-lighter);
-        }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; }
         }
 
         /* ==========================================================
@@ -728,15 +721,9 @@
            SCROLL REVEAL
         ========================================================== */
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Animated elements start hidden, GSAP handles reveal */
+        .gs-reveal {
+            will-change: transform, opacity;
         }
 
         .scroll-top {
@@ -891,12 +878,12 @@
             <div class="section-label" data-t="about_label">À propos</div>
             <div class="section-title" data-t="about_title">D'un labo de physique à un terminal</div>
             <div class="about-grid">
-                <div class="about-text reveal">
+                <div class="about-text gs-reveal">
                     <p data-t="about_p1">Mon parcours n'est pas linéaire, et c'est ce qui le rend intéressant. J'ai commencé par un DUT Mesures Physiques à Orsay : oscilloscopes, capteurs, salles blanches. C'est là que j'ai écrit mes premières lignes de Python, et quelque chose a changé.</p>
                     <p data-t="about_p2">Après une prépa ATS pour consolider mes bases en maths et sciences de l'ingénieur, j'ai intégré l'EFREI Paris en cycle ingénieur. Début 2025, je suis parti quatre mois à Concordia University à Montréal, une expérience qui m'a appris autant sur moi que sur le code.</p>
                     <p data-t="about_p3">Aujourd'hui, je suis en stage chez Thales AVS dans l'équipe Training & Simulation, où je conçois un référentiel d'exploitation en Angular, C# et PostgreSQL. Ce qui me plaît dans le dev, c'est la satisfaction de résoudre un problème concret et de voir quelque chose fonctionner.</p>
                 </div>
-                <div class="about-aside reveal">
+                <div class="about-aside gs-reveal">
                     <div class="aside-block">
                         <h3 data-t="now_label">En ce moment</h3>
                         <ul class="aside-list">
@@ -924,7 +911,7 @@
             <div class="section-label" data-t="skills_label">Compétences</div>
             <div class="section-title" data-t="skills_title">Stack technique</div>
             <p class="section-desc" data-t="skills_desc">Les outils que j'utilise au quotidien et ceux que j'approfondis en ce moment.</p>
-            <div class="skills-row reveal">
+            <div class="skills-row gs-reveal">
                 <div class="skill-group">
                     <h3 data-t="sk_prog">Langages</h3>
                     <div class="skill-list">
@@ -993,7 +980,7 @@
             <p class="section-desc" data-t="proj_desc">Des projets perso et académiques qui m'ont permis de progresser concrètement.</p>
             <div class="projects-list">
 
-                <div class="project-item reveal">
+                <div class="project-item gs-reveal">
                     <div class="project-meta">
                         <span class="date" data-t="p1_date">Avr. 2026, en cours</span>
                         <span class="stack">React · Python (FastAPI) · Kubernetes · ChromaDB · Mistral LLM · Docker · MinIO</span>
@@ -1004,7 +991,7 @@
                     </div>
                 </div>
 
-                <div class="project-item reveal">
+                <div class="project-item gs-reveal">
                     <div class="project-meta">
                         <span class="date" data-t="p2_date">Jan. - Juin 2026</span>
                         <span class="stack">Python · FastAPI · Docker · GitHub Actions · Kubernetes · SQLite · PyTest · Telegram API</span>
@@ -1016,7 +1003,7 @@
                     </div>
                 </div>
 
-                <div class="project-item reveal">
+                <div class="project-item gs-reveal">
                     <div class="project-meta">
                         <span class="date" data-t="p3_date">Nov. 2025, en cours</span>
                         <span class="stack">Next.js · TypeScript · OpenAI · PostgreSQL · Prisma · Stripe</span>
@@ -1039,7 +1026,7 @@
 
             <p class="exp-category" data-t="cat_exp">Expériences professionnelles</p>
             <div class="timeline">
-                <div class="timeline-block reveal">
+                <div class="timeline-block gs-reveal">
                     <div class="timeline-left">
                         <span class="period" data-t="w1_period">Jan. - Avr. 2026 & Août - Sep. 2026</span>
                         <span class="org">Thales AVS</span>
@@ -1054,7 +1041,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-block reveal">
+                <div class="timeline-block gs-reveal">
                     <div class="timeline-left">
                         <span class="period" data-t="w2_period">Nov. 2022 - Jan. 2023</span>
                         <span class="org">CINEA</span>
@@ -1072,7 +1059,7 @@
 
             <p class="exp-category" data-t="cat_edu">Formation</p>
             <div class="timeline">
-                <div class="timeline-block reveal">
+                <div class="timeline-block gs-reveal">
                     <div class="timeline-left">
                         <span class="period">2024 - 2027</span>
                         <span class="org">EFREI Paris</span>
@@ -1086,7 +1073,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-block reveal">
+                <div class="timeline-block gs-reveal">
                     <div class="timeline-left">
                         <span class="period">2023 - 2024</span>
                         <span class="org">Lycée Robert Doisneau</span>
@@ -1099,7 +1086,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-block reveal">
+                <div class="timeline-block gs-reveal">
                     <div class="timeline-left">
                         <span class="period">2020 - 2023</span>
                         <span class="org">IUT d'Orsay, Paris-Saclay</span>
@@ -1122,7 +1109,7 @@
             <div class="section-label" data-t="int_label">En dehors du code</div>
             <div class="section-title" data-t="int_title">Ce qui m'anime aussi</div>
             <p class="section-desc" data-t="int_desc">Parce qu'un portfolio sans un peu de personnalité, c'est juste un CV en ligne.</p>
-            <div class="interests-grid reveal">
+            <div class="interests-grid gs-reveal">
                 <div class="interest-card">
                     <h3 data-t="i1_title">Hardware & PC building</h3>
                     <p data-t="i1_desc">Passionné par l'univers du hardware et du PC building. Je suis de près les sorties de composants et les benchmarks, et j'aime comprendre ce qui se passe sous le capot d'une machine.</p>
@@ -1148,7 +1135,7 @@
                     <div class="section-title" data-t="contact_title">Discutons</div>
                     <p class="contact-text" style="color:var(--text-light);font-size:0.95rem;max-width:400px;" data-t="contact_desc">Je recherche une alternance M2 en Ingénierie DevOps à partir de novembre 2026. Ouvert à toute discussion, opportunité ou échange.</p>
                 </div>
-                <div class="contact-links reveal">
+                <div class="contact-links gs-reveal">
                     <a href="mailto:cao.cao@efrei.net" class="contact-link">
                         <span class="label">Email</span>
                         <span>cao.cao@efrei.net</span>
@@ -1304,23 +1291,20 @@
         }
 
         // ==========================================================
-        // SCROLL REVEAL
+        // SCROLL REVEAL (GSAP + ScrollTrigger)
+        // Each section type gets a different animation pattern
+        // to avoid the "everything fades up the same" AI look.
         // ==========================================================
-
-        var revealObs = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-                if (e.isIntersecting) e.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(function(el) {
-            revealObs.observe(el);
-        });
 
         // Show scroll-to-top button after 400px of scroll
         var scrollTopBtn = document.getElementById('scrollTop');
+
+        // Nav shadow on scroll
+        var navEl = document.querySelector('nav');
+
         window.addEventListener('scroll', function() {
             scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+            navEl.classList.toggle('nav-scrolled', window.scrollY > 20);
         });
 
         // ==========================================================
@@ -1346,6 +1330,135 @@
                 a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent-color)' : '';
             });
         });
+    </script>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (prefersReducedMotion) {
+            // Show everything immediately if user prefers reduced motion
+            gsap.set(".hero-text h1, .hero-text .subtitle, .hero-meta > span, .hero-links, .hero-visual", {
+                autoAlpha: 1, x: 0, y: 0
+            });
+        } else {
+
+            // =============================================
+            // HERO TIMELINE
+            // Each element enters from a different direction.
+            // =============================================
+
+            gsap.set(".hero-text h1", { y: 25 });
+            gsap.set(".hero-text .subtitle", { x: -15 });
+            gsap.set(".hero-meta > span", { y: 12 });
+            gsap.set(".hero-links", { y: 10 });
+            gsap.set(".hero-visual", { x: 30 });
+
+            var heroTl = gsap.timeline({ delay: 0.3 });
+
+            heroTl.to(".hero-visual", {
+                autoAlpha: 1, x: 0, duration: 0.6, ease: "power2.out"
+            })
+            .to(".hero-text h1", {
+                autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out"
+            }, "-=0.3")
+            .to(".hero-text .subtitle", {
+                autoAlpha: 1, x: 0, duration: 0.45, ease: "power2.out"
+            }, "-=0.15")
+            .to(".hero-meta > span", {
+                autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.1, ease: "power2.out"
+            }, "-=0.1")
+            .to(".hero-links", {
+                autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out"
+            }, "-=0.05");
+
+
+            // =============================================
+            // SCROLL-TRIGGERED SECTIONS
+            // Using gsap.to() with initial gsap.set() instead
+            // of gsap.from() to avoid elements getting stuck
+            // invisible if a trigger misfires.
+            // =============================================
+
+            // Helper: set initial hidden state + create scroll trigger
+            function revealOnScroll(targets, fromProps, triggerEl, staggerVal) {
+                var elements = gsap.utils.toArray(targets);
+                if (elements.length === 0) return;
+
+                // Set initial state
+                gsap.set(elements, fromProps);
+
+                // Build "to" props (reverse of fromProps)
+                var toProps = { autoAlpha: 1, duration: 0.5, ease: "power2.out" };
+                if (fromProps.x) toProps.x = 0;
+                if (fromProps.y) toProps.y = 0;
+                if (fromProps.scale) toProps.scale = 1;
+                if (staggerVal) toProps.stagger = staggerVal;
+
+                toProps.scrollTrigger = {
+                    trigger: triggerEl || elements[0],
+                    start: "top 85%",
+                    once: true
+                };
+
+                gsap.to(elements, toProps);
+            }
+
+            // About: text from left, aside from right
+            revealOnScroll(".about-text", { autoAlpha: 0, x: -25 }, ".about-text");
+            revealOnScroll(".aside-block", { autoAlpha: 0, x: 25 }, ".about-aside", 0.15);
+
+            // Skills: groups fade up, staggered
+            revealOnScroll(".skill-group", { autoAlpha: 0, y: 18 }, ".skills-row", 0.08);
+
+            // Projects: cards slide from left
+            revealOnScroll(".project-item", { autoAlpha: 0, x: -25 }, ".projects-list", 0.12);
+
+            // Experience: each block individually
+            gsap.utils.toArray(".timeline-block").forEach(function(block) {
+                revealOnScroll(block, { autoAlpha: 0, y: 15 }, block);
+            });
+
+            // Interests: scale from center
+            var interestCards = gsap.utils.toArray(".interest-card");
+            if (interestCards.length > 0) {
+                gsap.set(interestCards, { autoAlpha: 0, scale: 0.95 });
+                gsap.to(interestCards, {
+                    autoAlpha: 1,
+                    scale: 1,
+                    duration: 0.45,
+                    stagger: { amount: 0.25, from: "center" },
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".interests-grid",
+                        start: "top 82%",
+                        once: true
+                    }
+                });
+            }
+
+            // Contact: left fades in, links stagger from right
+            revealOnScroll(".contact-grid > div:first-child", { autoAlpha: 0, y: 15 }, ".contact-grid");
+            revealOnScroll(".contact-link", { autoAlpha: 0, x: 20 }, ".contact-links", 0.08);
+
+            // Section headers: subtle reveal
+            gsap.utils.toArray(".section-label").forEach(function(el) {
+                revealOnScroll(el, { autoAlpha: 0, y: 8 }, el);
+            });
+            gsap.utils.toArray(".section-title").forEach(function(el) {
+                revealOnScroll(el, { autoAlpha: 0, y: 12 }, el);
+            });
+            gsap.utils.toArray(".section-desc").forEach(function(el) {
+                revealOnScroll(el, { autoAlpha: 0, y: 10 }, el);
+            });
+            gsap.utils.toArray(".exp-category").forEach(function(el) {
+                revealOnScroll(el, { autoAlpha: 0, y: 8 }, el);
+            });
+        }
     </script>
 </body>
 </html>
