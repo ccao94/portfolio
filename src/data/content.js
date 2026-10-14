@@ -397,8 +397,8 @@ export const beyond = {
       tag: { fr: "Adaptation", en: "Adaptability" },
       title: { fr: "Porto, dans une boutique de thé", en: "Porto, in a tea shop" },
       text: {
-        fr: "Mobilité internationale obligatoire de l'EFREI (programme SWIM). Je présente les thés aux clients en anglais, sans parler portugais.",
-        en: "EFREI's mandatory international placement (SWIM program). I present teas to customers in English, without speaking Portuguese.",
+        fr: "Mobilité internationale obligatoire de l'EFREI (programme SWIM). Je m'occupe de tâches numériques et de la reprise du site web de la boutique, et je présente aussi les thés aux clients, en anglais, sans parler portugais.",
+        en: "EFREI's mandatory international placement (SWIM program). I handle digital tasks and the rework of the shop's website, and I also present teas to customers, in English, without speaking Portuguese.",
       },
     },
   ],
