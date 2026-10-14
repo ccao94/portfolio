@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* Palette and fonts, used as bg-ink, text-matcha, font-display... */
+@theme {
+  --color-ink: #0e100e;
+  --color-ink-soft: #161915;
+  --color-cream: #f3efe6;
+  --color-cream-2: #e8e2d4;
+  --color-forest: #2f4a37;
+  --color-forest-deep: #263d2d;
+  --color-matcha: #a9c49a;
+  --color-olive: #4a6741;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-matcha);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-matcha);
+  outline-offset: 3px;
+}
+
+/* Small mono label above each section title */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Big first letter of the about text */
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.6em;
+  float: left;
+  line-height: 0.85;
+  margin: 0.06em 0.12em 0 0;
+  color: var(--color-matcha);
+}
+
+/* Monochrome tech logo: the SVG is used as a mask, so it takes the text color */
+.tech-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+}
+
+/* Underline that grows from the left on hover */
+.link-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-soft);
+}
+
+.link-grow:hover {
+  background-size: 100% 1px;
+}
+
+/* Faint grid behind the projects */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(243 239 230 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(243 239 230 / 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
