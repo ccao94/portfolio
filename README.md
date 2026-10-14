@@ -1,62 +1,64 @@
 # Portfolio, Cao Cuong Cao
 
-Mon portfolio personnel : élève ingénieur M2 Software Engineering à l'EFREI Paris, en recherche d'alternance de 12 mois à partir de novembre 2026.
+Personal portfolio of a Software Engineering student at EFREI Paris (M2 from November 2026), looking for a 12-month apprenticeship starting November 2026.
+
+<!-- Live site: add the Vercel URL here once deployed -->
 
 ## Stack
 
 - React 19 + Vite
 - Tailwind CSS v4
-- Framer Motion pour les animations
-- Polices auto-hébergées avec Fontsource (Playfair Display, IBM Plex Sans, IBM Plex Mono)
-- Site bilingue FR / EN, sans librairie i18n
+- Framer Motion for animations
+- Self-hosted fonts with Fontsource (Playfair Display, IBM Plex Sans, IBM Plex Mono)
+- Bilingual FR / EN, without an i18n library
 
-## Lancer en local
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Le site tourne sur http://localhost:5173.
+The site runs on http://localhost:5173.
 
 ```bash
-npm run build     # build de production dans dist/
-npm run preview   # tester le build
+npm run build     # production build in dist/
+npm run preview   # serve the build locally
 npm run lint
 ```
 
-## Structure
+## Project structure
 
 ```
 public/
-  images/photo.jpg          photo (hero + badge)
-  images/og-image.jpg       image affichée quand on partage le lien
-  cv/CV_Cao_Cuong_Cao.pdf   CV téléchargeable
+  images/photo.jpg          profile photo (hero + badge)
+  images/og-image.jpg       preview image when the link is shared
+  cv/CV_Cao_Cuong_Cao.pdf   downloadable resume
 src/
-  data/content.js           tout le contenu du site, en FR et EN
-  data/icons.js             logos des technos
-  i18n/                     contexte de langue (FR / EN)
-  components/               une section = un composant
+  data/content.js           all the site content, in French and English
+  data/icons.js             tech logos
+  i18n/                     language context (FR / EN)
+  components/               one component per section
 ```
 
-## Modifier le contenu
+## Editing the content
 
-Tout se passe dans `src/data/content.js`. Un texte est soit une chaîne simple (identique dans les deux langues), soit un objet `{ fr, en }`.
+Everything is in `src/data/content.js`. A text is either a plain string (same in both languages) or a `{ fr, en }` object.
 
-- Ajouter un projet : ajouter un objet dans `projects.list`. Le champ `image` est facultatif (capture d'écran dans `public/images/`).
-- Lier une compétence à un projet : modifier le tableau `used` dans `skills.groups`. Les identifiants possibles sont dans `places`.
-- Frise du parcours : les barres sont en mois depuis septembre 2020 (`path.rows`).
-- Vidéo dans le hero : déposer une vidéo dans `public/images/` puis renseigner `profile.heroVideo`.
+- Add a project: add an object to `projects.list`. The `image` field is optional (screenshot in `public/images/`).
+- Link a skill to a project: edit the `used` array in `skills.groups`. Available ids are listed in `places`.
+- Timeline: bars are expressed in months since September 2020 (`path.rows`).
+- Hero video: put a video in `public/images/` and set `profile.heroVideo`.
 
-## Formulaire de contact
+## Contact form
 
-Les messages passent par [FormSubmit](https://formsubmit.co), gratuit et sans compte. Au premier envoi, FormSubmit envoie un mail de confirmation à l'adresse de `profile.email` : il faut cliquer sur le lien pour activer le formulaire.
+Messages are sent with [FormSubmit](https://formsubmit.co), free and without an account. On the first submission, FormSubmit sends a confirmation email to `profile.email`: click the link to activate the form.
 
-## Déploiement
+## Deployment
 
-Sur [Vercel](https://vercel.com) : importer le repo GitHub, Vercel détecte Vite tout seul (build `npm run build`, dossier `dist`).
+Deployed on [Vercel](https://vercel.com): import the GitHub repo, Vercel detects Vite automatically (build command `npm run build`, output folder `dist`).
 
-## Crédits
+## Credits
 
-- Logos des technos : [devicon](https://devicon.dev) (MIT)
-- Mise en page inspirée du portfolio de [Lohitha Damisetti](https://github.com/lohithadamisetti123/Lohitha_Damisetti_Portfolio)
+- Tech logos: [devicon](https://devicon.dev) (MIT)
+- Layout inspired by [Lohitha Damisetti's portfolio](https://github.com/lohithadamisetti123/Lohitha_Damisetti_Portfolio)
