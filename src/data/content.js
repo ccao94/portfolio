@@ -397,14 +397,21 @@ export const beyond = {
     {
       date: { fr: "Octobre 2026", en: "October 2026" },
       tag: { fr: "Adaptation", en: "Adaptability" },
-      title: { fr: "Porto, dans une boutique de thé", en: "Porto, in a tea shop" },
+      title: { fr: "Porto, chez MÙI Concept", en: "Porto, at MÙI Concept" },
       text: {
-        fr: "Mobilité internationale obligatoire de l'EFREI (programme SWIM). Je m'occupe de tâches numériques et de la reprise du site web de la boutique, et je présente aussi les thés aux clients, en anglais, sans parler portugais.",
-        en: "EFREI's mandatory international placement (SWIM program). I handle digital tasks and the rework of the shop's website, and I also present teas to customers, in English, without speaking Portuguese.",
+        fr: "Mobilité internationale obligatoire de l'EFREI (programme SWIM), dans une boutique de thé. Je m'occupe de tâches numériques et de la reprise du site web de la boutique, et je présente aussi les thés aux clients, en anglais, sans parler portugais.",
+        en: "EFREI's mandatory international placement (SWIM program), in a tea shop. I handle digital tasks and the rework of the shop's website, and I also present teas to customers, in English, without speaking Portuguese.",
       },
     },
   ],
   hobbies: [
+    {
+      title: { fr: "Thé & parfumerie", en: "Tea & perfumery" },
+      text: {
+        fr: "J'explore le monde du thé, et de plus en plus la parfumerie de niche, surtout asiatique et les parfums aux notes de thé. Je passe régulièrement dans les boutiques spécialisées à Paris. Travailler dans une boutique de thé à Porto tombait donc plutôt bien.",
+        en: "I explore the world of tea, and more and more niche perfumery, especially Asian houses and tea-note fragrances. I regularly visit specialist shops in Paris. Working in a tea shop in Porto was a happy coincidence, then.",
+      },
+    },
     {
       title: "Hardware & PC building",
       text: {

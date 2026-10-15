@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { profile } from '../data/content'
+import Leaf from './Leaf'
 
-// Green shutter: the name fills up like a tea glass, then the shutter slides up
+// Green shutter: a leaf drops into the name, the name fills up like a cup of tea, then the shutter slides up
 export default function Preloader({ onDone }) {
   const reduce = useReducedMotion()
 
@@ -24,6 +25,17 @@ export default function Preloader({ onDone }) {
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
       >
+        {/* Leaf drifting down into the name */}
+        <span className="absolute -top-14 left-1/2 -translate-x-1/2 md:-top-20">
+          <motion.span
+            className="block text-matcha"
+            initial={{ y: -30, x: 0, rotate: -40, opacity: 0 }}
+            animate={{ y: [-30, 10, 40, 70], x: [0, 14, -10, 0], rotate: [-40, 0, 25, 10], opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
+          >
+            <Leaf className="h-7 w-7 md:h-9 md:w-9" />
+          </motion.span>
+        </span>
         <span className="text-forest-deep">{profile.brand}.</span>
         <motion.span
           className="absolute inset-0 text-cream"

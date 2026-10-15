@@ -3,6 +3,7 @@ import { useLang } from '../i18n/useLang'
 import { beyond } from '../data/content'
 import Reveal from './Reveal'
 import SectionHeader from './SectionHeader'
+import Leaf from './Leaf'
 
 // One moment of the vertical timeline. Alternates left / right on large screens.
 function Moment({ moment, index }) {
@@ -11,13 +12,18 @@ function Moment({ moment, index }) {
 
   return (
     <li className="relative grid md:grid-cols-2 md:gap-16">
-      <motion.span
-        className="absolute left-[7px] top-8 z-10 h-3 w-3 rounded-full border-2 border-ink bg-matcha md:left-1/2 md:-translate-x-1/2"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.2 }}
-      />
+      {/* Tea leaf on the line instead of a plain dot */}
+      <span className="absolute left-[2px] top-7 z-10 md:left-1/2 md:-translate-x-1/2">
+        <motion.span
+          className="block text-matcha"
+          initial={{ scale: 0, rotate: -60 }}
+          whileInView={{ scale: 1, rotate: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 260, damping: 14, delay: 0.2 }}
+        >
+          <Leaf className="h-5 w-5" />
+        </motion.span>
+      </span>
       <Reveal
         x={right ? 30 : -30}
         y={0}
@@ -51,7 +57,7 @@ export default function Beyond() {
           ))}
         </ol>
 
-        <div className="mt-24 grid gap-5 md:grid-cols-3">
+        <div className="mt-24 grid gap-5 md:grid-cols-2">
           {beyond.hobbies.map((h, i) => (
             <Reveal
               key={i}
