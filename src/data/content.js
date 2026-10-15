@@ -150,6 +150,7 @@ export const skills = {
       items: [
         { name: "PostgreSQL", icon: "postgresql", used: ["thales", "monitoring", "flighttracker"] },
         { name: "Spring Data JPA", icon: "spring", used: ["flighttracker"] },
+        { name: "Flyway", icon: null, used: ["flighttracker"] },
         { name: { fr: "Modélisation de données", en: "Data modeling" }, icon: null, used: ["thales"] },
       ],
     },
@@ -169,6 +170,7 @@ export const skills = {
       items: [
         { name: "PyTest", icon: "pytest", used: ["monitoring"] },
         { name: "JUnit, Mockito", icon: null, used: ["flighttracker"] },
+        { name: "Testcontainers", icon: null, used: ["flighttracker"] },
         { name: "Jest", icon: "jest", used: ["efrei"] },
         { name: { fr: "Tests unitaires et d'intégration", en: "Unit and integration tests" }, icon: null, used: ["monitoring", "flighttracker"] },
         { name: { fr: "POO (SOLID, design patterns)", en: "OOP (SOLID, design patterns)" }, icon: null, used: ["efrei"] },
@@ -235,14 +237,14 @@ export const projects = {
       title: { fr: "FlightTracker, suivi de flotte aérienne", en: "FlightTracker, aircraft fleet tracking" },
       date: { fr: "Sept. 2026 · en cours", en: "Sept. 2026 · ongoing" },
       description: {
-        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24, conçue pour exploiter les données ADS-B d'OpenSky Network. Architecture en couches, persistance JPA, PostgreSQL conteneurisé, tests unitaires et de la couche web (JUnit 5, Mockito, MockMvc). Projet personnel en cours, pour monter en compétence sur Java et Spring Boot.",
-        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code, built to use ADS-B data from OpenSky Network. Layered architecture, JPA persistence, containerized PostgreSQL, unit and web layer tests (JUnit 5, Mockito, MockMvc). Ongoing personal project to build up my Java and Spring Boot skills.",
+        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24. Les positions arrivent en direct depuis l'API OpenSky Network (authentification OAuth2), sont collectées à intervalle régulier et conservées pour retracer l'historique des trajectoires. Architecture en couches, schéma versionné avec Flyway, tests unitaires et d'intégration contre un vrai PostgreSQL grâce à Testcontainers. Projet personnel en cours, pour monter en compétence sur Java et Spring Boot.",
+        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code. Live positions come from the OpenSky Network API (OAuth2 authentication), are collected on a schedule and stored to rebuild flight path history. Layered architecture, schema versioned with Flyway, unit and integration tests against a real PostgreSQL thanks to Testcontainers. Ongoing personal project to build up my Java and Spring Boot skills.",
       },
       flows: [
-        { label: "Pipeline", steps: ["OpenSky (ADS-B)", "API Spring Boot", "Spring Data JPA", "PostgreSQL"] },
-        { label: "Tests", steps: ["JUnit 5", "Mockito", "MockMvc"] },
+        { label: "Pipeline", steps: ["API OpenSky (OAuth2)", { fr: "Collecte planifiée", en: "Scheduled collection" }, "PostgreSQL + Flyway", "API REST Spring Boot"] },
+        { label: "Tests", steps: ["JUnit 5", "Mockito", "MockMvc", "Testcontainers"] },
       ],
-      stack: ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "JUnit 5", "Mockito", "Maven", "Docker"],
+      stack: ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Flyway", "OAuth2", "JUnit 5", "Mockito", "Testcontainers", "Maven"],
       github: "https://github.com/ccao94/flighttracker",
       image: null,
     },
