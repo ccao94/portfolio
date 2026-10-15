@@ -2,7 +2,7 @@
 
 Personal portfolio of a Software Engineering student at EFREI Paris (M2 from November 2026), looking for a 12-month apprenticeship starting November 2026.
 
-<!-- Live site: add the Vercel URL here once deployed -->
+Live site: https://cao-cuong-cao.vercel.app/
 
 ## Stack
 
