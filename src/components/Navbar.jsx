@@ -35,6 +35,17 @@ export default function Navbar() {
 
   const solid = scrolled || open
 
+  // Mobile menu: close it first, then scroll. Scrolling while the menu
+  // collapses gets cancelled on phones, so the link seemed to do nothing.
+  function goTo(e, id) {
+    e.preventDefault()
+    setOpen(false)
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      history.replaceState(null, '', `#${id}`)
+    }, 260)
+  }
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
@@ -103,7 +114,7 @@ export default function Navbar() {
                 <a
                   key={id}
                   href={`#${id}`}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => goTo(e, id)}
                   className="border-b border-cream/15 py-3 font-display text-xl text-cream last:border-none"
                 >
                   {tr(label)}
