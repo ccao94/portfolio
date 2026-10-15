@@ -190,6 +190,7 @@ export const projects = {
     en: "Personal and academic projects, with a sketch of what happens under the hood.",
   },
   githubLabel: { fr: "Code source", en: "Source code" },
+  demoLabel: { fr: "Voir la démo", en: "Live demo" },
   allRepos: { fr: "Voir tous mes repos GitHub", en: "See all my GitHub repos" },
   list: [
     {
@@ -210,7 +211,13 @@ export const projects = {
       ],
       stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "GitHub Actions", "Kubernetes", "PyTest", "Telegram API"],
       github: "https://github.com/ccao94/monitoring",
-      image: null,
+      demo: null, // URL of the online dashboard
+      images: [
+        {
+          src: "/images/projects/monitoring-dashboard.webp",
+          alt: { fr: "Dashboard de suivi des prix, avec l'historique de chaque produit et son seuil d'alerte", en: "Price tracking dashboard, with each product's history and alert threshold" },
+        },
+      ],
     },
     {
       id: "smartsoon",
@@ -229,7 +236,6 @@ export const projects = {
       ],
       stack: ["Python", "FastAPI", "React", "Mistral", "ChromaDB", "Tesseract", "Presidio", "Docker Compose"],
       github: "https://github.com/ccao94/smartsoon",
-      image: null,
     },
     {
       id: "flighttracker",
@@ -237,8 +243,8 @@ export const projects = {
       title: { fr: "FlightTracker, suivi de flotte aérienne", en: "FlightTracker, aircraft fleet tracking" },
       date: { fr: "Sept. 2026 · en cours", en: "Sept. 2026 · ongoing" },
       description: {
-        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24. Les positions arrivent en direct depuis l'API OpenSky Network (authentification OAuth2), sont collectées à intervalle régulier et conservées pour retracer l'historique des trajectoires. Architecture en couches, schéma versionné avec Flyway, tests unitaires et d'intégration contre un vrai PostgreSQL grâce à Testcontainers. Projet personnel en cours, pour monter en compétence sur Java et Spring Boot.",
-        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code. Live positions come from the OpenSky Network API (OAuth2 authentication), are collected on a schedule and stored to rebuild flight path history. Layered architecture, schema versioned with Flyway, unit and integration tests against a real PostgreSQL thanks to Testcontainers. Ongoing personal project to build up my Java and Spring Boot skills.",
+        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24. Les positions arrivent en direct depuis l'API OpenSky Network (authentification OAuth2), sont collectées à intervalle régulier et conservées pour retracer l'historique des trajectoires et calculer des statistiques de vol. Architecture en couches, schéma versionné avec Flyway, tests unitaires et d'intégration contre un vrai PostgreSQL grâce à Testcontainers. Projet personnel en cours, pour monter en compétence sur Java et Spring Boot.",
+        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code. Live positions come from the OpenSky Network API (OAuth2 authentication), are collected on a schedule and stored to rebuild flight path history and compute flight statistics. Layered architecture, schema versioned with Flyway, unit and integration tests against a real PostgreSQL thanks to Testcontainers. Ongoing personal project to build up my Java and Spring Boot skills.",
       },
       flows: [
         { label: "Pipeline", steps: ["API OpenSky (OAuth2)", { fr: "Collecte planifiée", en: "Scheduled collection" }, "PostgreSQL + Flyway", "API REST Spring Boot"] },
@@ -246,7 +252,18 @@ export const projects = {
       ],
       stack: ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Flyway", "OAuth2", "JUnit 5", "Mockito", "Testcontainers", "Maven"],
       github: "https://github.com/ccao94/flighttracker",
-      image: null,
+      images: [
+        {
+          src: "/images/projects/flighttracker-history.webp",
+          alt: { fr: "Réponse JSON de l'API : historique des positions d'un avion", en: "API JSON response: position history of an aircraft" },
+          caption: { fr: "Historique des positions d'un long-courrier Air India", en: "Position history of an Air India long-haul flight" },
+        },
+        {
+          src: "/images/projects/flighttracker-stats.webp",
+          alt: { fr: "Réponse JSON de l'API : statistiques de vol", en: "API JSON response: flight statistics" },
+          caption: { fr: "Statistiques du vol : distance, temps en vol, altitude et vitesse max", en: "Flight statistics: distance, airborne time, max altitude and speed" },
+        },
+      ],
     },
   ],
 }

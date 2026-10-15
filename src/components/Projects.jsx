@@ -39,10 +39,27 @@ function Flow({ flow }) {
   )
 }
 
+// Screenshot with an optional caption under it
+function Shot({ shot }) {
+  const { tr } = useLang()
+  return (
+    <figure>
+      <img
+        src={shot.src}
+        alt={tr(shot.alt)}
+        loading="lazy"
+        className="w-full rounded-xl border border-cream/10"
+      />
+      {shot.caption && <figcaption className="mt-2 font-mono text-[11px] text-cream/45">{tr(shot.caption)}</figcaption>}
+    </figure>
+  )
+}
+
 function ProjectCard({ project, index }) {
   const { tr } = useLang()
   const number = String(index + 1).padStart(2, '0')
   const featured = index === 0
+  const images = project.images ?? []
 
   return (
     <Reveal delay={0.05}>
@@ -67,22 +84,23 @@ function ProjectCard({ project, index }) {
             <h3 className="font-display text-2xl leading-tight md:text-4xl">{tr(project.title)}</h3>
           </div>
 
-          <div className={project.image ? 'mt-6 grid gap-8 lg:grid-cols-[1.2fr_1fr]' : 'mt-6'}>
+          {/* One screenshot: next to the text. Several: in a row under the text */}
+          <div className={images.length === 1 ? 'mt-6 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start' : 'mt-6'}>
             <div>
               <p className="max-w-3xl text-sm leading-relaxed text-cream/70 md:text-base">{tr(project.description)}</p>
               {project.flows.map((flow) => (
                 <Flow key={flow.label} flow={flow} />
               ))}
             </div>
-            {project.image && (
-              <img
-                src={project.image}
-                alt={tr(project.title)}
-                loading="lazy"
-                className="w-full rounded-xl border border-cream/10 object-cover"
-              />
-            )}
+            {images.length === 1 && <Shot shot={images[0]} />}
           </div>
+          {images.length > 1 && (
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {images.map((shot) => (
+                <Shot key={shot.src} shot={shot} />
+              ))}
+            </div>
+          )}
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-5 border-t border-cream/10 pt-6">
             <ul className="flex flex-wrap gap-2">
@@ -92,17 +110,30 @@ function ProjectCard({ project, index }) {
                 </li>
               ))}
             </ul>
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 text-sm font-medium transition-colors hover:border-cream hover:bg-cream hover:text-ink"
-              >
-                <GitHubIcon width={16} height={16} />
-                {tr(projects.githubLabel)}
-              </a>
-            )}
+            <div className="flex flex-wrap gap-3">
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-matcha"
+                >
+                  {tr(projects.demoLabel)}
+                  <ArrowRightIcon width={14} height={14} />
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 text-sm font-medium transition-colors hover:border-cream hover:bg-cream hover:text-ink"
+                >
+                  <GitHubIcon width={16} height={16} />
+                  {tr(projects.githubLabel)}
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </article>
