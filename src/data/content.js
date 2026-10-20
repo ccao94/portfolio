@@ -81,7 +81,7 @@ export const about = {
   facts: [
     { value: "6", text: { fr: "personnes coordonnées sur SmartSoon, en tant que chef de projet", en: "people coordinated on SmartSoon, as project lead" } },
     { value: "~60", text: { fr: "entités dans le modèle de données conçu chez Thales AVS", en: "entities in the data model I designed at Thales AVS" } },
-    { value: "~50", text: { fr: "tests PyTest exécutés contre une vraie base sur le projet de surveillance de prix", en: "PyTest tests run against a real database on the price monitoring project" } },
+    { value: "50+", text: { fr: "tests PyTest exécutés contre une vraie base sur le projet de surveillance de prix", en: "PyTest tests run against a real database on the price monitoring project" } },
     { value: "3", text: { fr: "langues parlées : français, anglais (C1), vietnamien", en: "languages spoken: French, English (C1), Vietnamese" } },
   ],
   badge: {
@@ -99,6 +99,7 @@ export const places = {
   smartsoon: { label: "SmartSoon", href: "#project-smartsoon" },
   flighttracker: { label: "FlightTracker", href: "#project-flighttracker" },
   efrei: { label: "EFREI", href: "#path" },
+  mlproject: { label: { fr: "Projet ML", en: "ML project" }, href: "https://github.com/ccao94/ml-project" },
 }
 
 export const skills = {
@@ -106,8 +107,8 @@ export const skills = {
   title: { fr: "Ce que j'utilise,", en: "What I use," },
   titleItalic: { fr: "et où.", en: "and where." },
   desc: {
-    fr: "Chaque techno renvoie au projet ou à l'expérience où je l'ai utilisée.",
-    en: "Each tool points to the project or job where I used it.",
+    fr: "Sous chaque techno, l'endroit où je l'ai utilisée.",
+    en: "Under each tool, where I used it.",
   },
   groups: [
     {
@@ -128,6 +129,7 @@ export const skills = {
         { name: "ASP.NET Core", icon: "dotnetcore", used: ["thales"] },
         { name: "FastAPI", icon: "fastapi", used: ["monitoring", "smartsoon"] },
         { name: "API REST", icon: null, used: ["thales", "monitoring", "flighttracker"] },
+        { name: "OAuth2", icon: null, used: ["flighttracker"] },
         { name: "Angular", icon: "angular", used: ["thales"] },
         { name: "React", icon: "react", used: ["smartsoon"] },
       ],
@@ -136,13 +138,14 @@ export const skills = {
       title: "DevOps & Outils",
       items: [
         { name: "Docker", icon: "docker", used: ["monitoring", "smartsoon", "flighttracker"] },
-        { name: "Docker Compose", icon: "docker", used: ["smartsoon"] },
+        { name: "Docker Compose", icon: "docker", used: ["monitoring", "smartsoon", "flighttracker"] },
         { name: "Kubernetes (Minikube)", icon: "kubernetes", used: ["monitoring"] },
-        { name: "GitHub Actions", icon: "githubactions", used: ["monitoring"] },
+        { name: "GitHub Actions", icon: "githubactions", used: ["monitoring", "flighttracker"] },
+        { name: { fr: "Déploiement (Render, Neon)", en: "Deployment (Render, Neon)" }, icon: null, used: ["monitoring", "flighttracker"] },
         { name: "GitLab CI", icon: "gitlab", used: ["efrei"] },
         { name: "Ansible", icon: null, used: ["efrei"] },
         { name: "Maven", icon: "maven", used: ["flighttracker"] },
-        { name: "Linux, Git", icon: "linux", used: ["efrei"] },
+        { name: "Linux, Git", icon: "linux", used: ["monitoring", "flighttracker"] },
       ],
     },
     {
@@ -162,7 +165,7 @@ export const skills = {
         { name: "ChromaDB", icon: null, used: ["smartsoon"] },
         { name: "OCR (Tesseract)", icon: null, used: ["smartsoon"] },
         { name: { fr: "Anonymisation (Presidio)", en: "Anonymization (Presidio)" }, icon: null, used: ["smartsoon"] },
-        { name: "NumPy, scikit-learn", icon: null, used: ["efrei"] },
+        { name: "NumPy, scikit-learn", icon: null, used: ["mlproject"] },
       ],
     },
     {
@@ -194,24 +197,55 @@ export const projects = {
   allRepos: { fr: "Voir tous mes repos GitHub", en: "See all my GitHub repos" },
   list: [
     {
+      id: "flighttracker",
+      badge: { fr: "Java · déployé · en cours", en: "Java · deployed · ongoing" },
+      title: { fr: "FlightTracker, suivi de flotte aérienne", en: "FlightTracker, aircraft fleet tracking" },
+      date: { fr: "Sept. 2026 · en cours", en: "Sept. 2026 · ongoing" },
+      description: {
+        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24. Les positions arrivent en direct depuis l'API OpenSky Network (authentification OAuth2), sont collectées à intervalle régulier et conservées pour retracer les trajectoires et calculer des statistiques de vol. Schéma versionné avec Flyway, tests unitaires et d'intégration contre un vrai PostgreSQL grâce à Testcontainers. Image Docker déployée sur Render, CI GitHub Actions à chaque push.",
+        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code. Live positions come from the OpenSky Network API (OAuth2 authentication), are collected on a schedule and stored to rebuild flight paths and compute flight statistics. Schema versioned with Flyway, unit and integration tests against a real PostgreSQL thanks to Testcontainers. Docker image deployed on Render, GitHub Actions CI on every push.",
+      },
+      flows: [
+        { label: "Pipeline", steps: ["API OpenSky (OAuth2)", { fr: "Collecte planifiée", en: "Scheduled collection" }, "PostgreSQL + Flyway", "API REST Spring Boot"] },
+        { label: { fr: "Déploiement", en: "Deployment" }, steps: [{ fr: "GitHub Actions (tests, build)", en: "GitHub Actions (tests, build)" }, { fr: "Image Docker", en: "Docker image" }, "Render + Neon"] },
+      ],
+      stack: ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Flyway", "OAuth2", "JUnit 5", "Mockito", "Testcontainers", "Docker", "GitHub Actions", "Maven"],
+      github: "https://github.com/ccao94/flighttracker",
+      demo: "https://flighttracker-ppkc.onrender.com",
+      demoNote: { fr: "Hébergement gratuit, premier chargement jusqu'à 3 minutes", en: "Free hosting, first load can take up to 3 minutes" },
+      images: [
+        {
+          src: "/images/projects/flighttracker-history.webp",
+          alt: { fr: "Réponse JSON de l'API : historique des positions d'un avion", en: "API JSON response: position history of an aircraft" },
+          caption: { fr: "Historique des positions d'un long-courrier Air India", en: "Position history of an Air India long-haul flight" },
+        },
+        {
+          src: "/images/projects/flighttracker-stats.webp",
+          alt: { fr: "Réponse JSON de l'API : statistiques de vol", en: "API JSON response: flight statistics" },
+          caption: { fr: "Statistiques du vol : distance, temps en vol, altitude et vitesse max", en: "Flight statistics: distance, airborne time, max altitude and speed" },
+        },
+      ],
+    },
+    {
       id: "monitoring",
       badge: { fr: "DevOps · déployé", en: "DevOps · deployed" },
       title: { fr: "Surveillance de prix et alertes automatisées", en: "Automated price monitoring and alerts" },
       date: { fr: "Janv. à juil. 2026 · 7 mois", en: "Jan. to Jul. 2026 · 7 months" },
       description: {
-        fr: "Scraper de prix multi-sites basé sur les données structurées des pages (JSON-LD, microdata), avec alertes Telegram quand un prix franchit un seuil et détection des pages anti-bot. API REST FastAPI et dashboard en ligne, PostgreSQL hébergé, ~50 tests PyTest exécutés contre une base réelle.",
-        en: "Multi-site price scraper based on the structured data of each page (JSON-LD, microdata), with Telegram alerts when a price crosses a threshold and anti-bot page detection. FastAPI REST API and online dashboard, hosted PostgreSQL, about 50 PyTest tests run against a real database.",
+        fr: "Scraper de prix multi-sites basé sur les données structurées des pages (JSON-LD, microdata), avec alertes Telegram quand un prix franchit un seuil et détection des pages anti-bot. API REST FastAPI et dashboard en ligne, PostgreSQL hébergé, plus de 50 tests PyTest exécutés contre une base réelle.",
+        en: "Multi-site price scraper based on the structured data of each page (JSON-LD, microdata), with Telegram alerts when a price crosses a threshold and anti-bot page detection. FastAPI REST API and online dashboard, hosted PostgreSQL, over 50 PyTest tests run against a real database.",
       },
       flows: [
         {
           label: "Pipeline",
           steps: [{ fr: "Sites marchands", en: "Retail sites" }, "Scraper JSON-LD", "PostgreSQL", "FastAPI + dashboard", { fr: "Alerte Telegram", en: "Telegram alert" }],
         },
-        { label: "CI/CD", steps: ["git push", "Lint + tests", "Build Docker", "CronJob Kubernetes"] },
+        { label: "CI", steps: ["git push", "Lint + tests", "Build Docker"] },
       ],
       stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "GitHub Actions", "Kubernetes", "PyTest", "Telegram API"],
       github: "https://github.com/ccao94/monitoring",
-      demo: null, // URL of the online dashboard
+      demo: "https://price-monitor-gj4e.onrender.com/",
+      demoNote: { fr: "Hébergement gratuit, premier chargement jusqu'à 1 minute", en: "Free hosting, first load can take up to 1 minute" },
       images: [
         {
           src: "/images/projects/monitoring-dashboard.webp",
@@ -236,35 +270,7 @@ export const projects = {
       ],
       stack: ["Python", "FastAPI", "React", "Mistral", "ChromaDB", "Tesseract", "Presidio", "Docker Compose"],
       github: "https://github.com/ccao94/smartsoon",
-    },
-    {
-      id: "flighttracker",
-      badge: { fr: "En cours", en: "In progress" },
-      title: { fr: "FlightTracker, suivi de flotte aérienne", en: "FlightTracker, aircraft fleet tracking" },
-      date: { fr: "Sept. 2026 · en cours", en: "Sept. 2026 · ongoing" },
-      description: {
-        fr: "API REST Spring Boot qui suit des avions réels par leur code ICAO24. Les positions arrivent en direct depuis l'API OpenSky Network (authentification OAuth2), sont collectées à intervalle régulier et conservées pour retracer l'historique des trajectoires et calculer des statistiques de vol. Architecture en couches, schéma versionné avec Flyway, tests unitaires et d'intégration contre un vrai PostgreSQL grâce à Testcontainers. Projet personnel en cours, pour monter en compétence sur Java et Spring Boot.",
-        en: "Spring Boot REST API that tracks real aircraft by their ICAO24 code. Live positions come from the OpenSky Network API (OAuth2 authentication), are collected on a schedule and stored to rebuild flight path history and compute flight statistics. Layered architecture, schema versioned with Flyway, unit and integration tests against a real PostgreSQL thanks to Testcontainers. Ongoing personal project to build up my Java and Spring Boot skills.",
-      },
-      flows: [
-        { label: "Pipeline", steps: ["API OpenSky (OAuth2)", { fr: "Collecte planifiée", en: "Scheduled collection" }, "PostgreSQL + Flyway", "API REST Spring Boot"] },
-        { label: "Tests", steps: ["JUnit 5", "Mockito", "MockMvc", "Testcontainers"] },
-      ],
-      stack: ["Java", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Flyway", "OAuth2", "JUnit 5", "Mockito", "Testcontainers", "Maven"],
-      github: "https://github.com/ccao94/flighttracker",
-      images: [
-        {
-          src: "/images/projects/flighttracker-history.webp",
-          alt: { fr: "Réponse JSON de l'API : historique des positions d'un avion", en: "API JSON response: position history of an aircraft" },
-          caption: { fr: "Historique des positions d'un long-courrier Air India", en: "Position history of an Air India long-haul flight" },
-        },
-        {
-          src: "/images/projects/flighttracker-stats.webp",
-          alt: { fr: "Réponse JSON de l'API : statistiques de vol", en: "API JSON response: flight statistics" },
-          caption: { fr: "Statistiques du vol : distance, temps en vol, altitude et vitesse max", en: "Flight statistics: distance, airborne time, max altitude and speed" },
-        },
-      ],
-    },
+    }
   ],
 }
 

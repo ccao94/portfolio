@@ -10,7 +10,7 @@ function Flow({ flow }) {
   const { tr } = useLang()
   return (
     <div className="mt-5">
-      <p className="eyebrow mb-2 text-cream/40">{flow.label}</p>
+      <p className="eyebrow mb-2 text-cream/40">{tr(flow.label)}</p>
       <ol className="flex flex-wrap items-center gap-y-2 font-mono text-xs">
         {flow.steps.map((step, i) => {
           const last = i === flow.steps.length - 1
@@ -88,8 +88,8 @@ function ProjectCard({ project, index }) {
           <div className={images.length === 1 ? 'mt-6 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start' : 'mt-6'}>
             <div>
               <p className="max-w-3xl text-sm leading-relaxed text-cream/70 md:text-base">{tr(project.description)}</p>
-              {project.flows.map((flow) => (
-                <Flow key={flow.label} flow={flow} />
+              {project.flows.map((flow, i) => (
+                <Flow key={i} flow={flow} />
               ))}
             </div>
             {images.length === 1 && <Shot shot={images[0]} />}
@@ -110,29 +110,33 @@ function ProjectCard({ project, index }) {
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap gap-3">
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-matcha"
-                >
-                  {tr(projects.demoLabel)}
-                  <ArrowRightIcon width={14} height={14} />
-                </a>
-              )}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 text-sm font-medium transition-colors hover:border-cream hover:bg-cream hover:text-ink"
-                >
-                  <GitHubIcon width={16} height={16} />
-                  {tr(projects.githubLabel)}
-                </a>
-              )}
+            <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-wrap gap-3">
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-matcha"
+                  >
+                    {tr(projects.demoLabel)}
+                    <ArrowRightIcon width={14} height={14} />
+                  </a>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 text-sm font-medium transition-colors hover:border-cream hover:bg-cream hover:text-ink"
+                  >
+                    <GitHubIcon width={16} height={16} />
+                    {tr(projects.githubLabel)}
+                  </a>
+                )}
+              </div>
+              {/* Free hosting sleeps, so the first visit is slow */}
+              {project.demo && project.demoNote && <p className="font-mono text-[11px] text-cream/45">{tr(project.demoNote)}</p>}
             </div>
           </div>
         </div>
