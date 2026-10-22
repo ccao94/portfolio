@@ -81,7 +81,7 @@ export const about = {
   facts: [
     { value: "6", text: { fr: "personnes coordonnées sur SmartSoon, en tant que chef de projet", en: "people coordinated on SmartSoon, as project lead" } },
     { value: "~60", text: { fr: "entités dans le modèle de données conçu chez Thales AVS", en: "entities in the data model I designed at Thales AVS" } },
-    { value: "50+", text: { fr: "tests PyTest exécutés contre une vraie base sur le projet de surveillance de prix", en: "PyTest tests run against a real database on the price monitoring project" } },
+    { value: "61", text: { fr: "tests PyTest exécutés contre une vraie base sur le projet de surveillance de prix", en: "PyTest tests run against a real database on the price monitoring project" } },
     { value: "3", text: { fr: "langues parlées : français, anglais (C1), vietnamien", en: "languages spoken: French, English (C1), Vietnamese" } },
   ],
   badge: {
@@ -149,16 +149,20 @@ export const skills = {
       ],
     },
     {
-      title: { fr: "Bases de données", en: "Databases" },
+      title: { fr: "Data & bases de données", en: "Data & databases" },
       items: [
         { name: "PostgreSQL", icon: "postgresql", used: ["thales", "monitoring", "flighttracker"] },
         { name: "Spring Data JPA", icon: "spring", used: ["flighttracker"] },
         { name: "Flyway", icon: null, used: ["flighttracker"] },
         { name: { fr: "Modélisation de données", en: "Data modeling" }, icon: null, used: ["thales"] },
+        { name: { fr: "Vues SQL, fonctions fenêtre", en: "SQL views, window functions" }, icon: null, used: ["monitoring"] },
+        { name: { fr: "Qualité des données", en: "Data quality" }, icon: null, used: ["monitoring"] },
+        { name: { fr: "Définition de KPI", en: "KPI definition" }, icon: null, used: ["monitoring"] },
+        { name: { fr: "Power BI, DAX (notions)", en: "Power BI, DAX (basics)" }, icon: null, used: ["monitoring"] },
       ],
     },
     {
-      title: "IA & Data",
+      title: { fr: "IA", en: "AI" },
       items: [
         { name: "LLM (Mistral)", icon: null, used: ["smartsoon"] },
         { name: "RAG, embeddings", icon: null, used: ["smartsoon"] },
@@ -228,21 +232,25 @@ export const projects = {
     },
     {
       id: "monitoring",
-      badge: { fr: "DevOps · déployé", en: "DevOps · deployed" },
+      badge: { fr: "Data · déployé · en cours", en: "Data · deployed · ongoing" },
       title: { fr: "Surveillance de prix et alertes automatisées", en: "Automated price monitoring and alerts" },
-      date: { fr: "Janv. à juil. 2026 · 7 mois", en: "Jan. to Jul. 2026 · 7 months" },
+      date: { fr: "Janv. 2026 · en cours", en: "Jan. 2026 · ongoing" },
       description: {
-        fr: "Scraper de prix multi-sites basé sur les données structurées des pages (JSON-LD, microdata), avec alertes Telegram quand un prix franchit un seuil et détection des pages anti-bot. API REST FastAPI et dashboard en ligne, PostgreSQL hébergé, plus de 50 tests PyTest exécutés contre une base réelle.",
-        en: "Multi-site price scraper based on the structured data of each page (JSON-LD, microdata), with Telegram alerts when a price crosses a threshold and anti-bot page detection. FastAPI REST API and online dashboard, hosted PostgreSQL, over 50 PyTest tests run against a real database.",
+        fr: "Scraper de prix multi-sites basé sur les données structurées des pages (JSON-LD, microdata), avec alertes Telegram quand un prix franchit un seuil et détection des pages anti-bot. Chaque collecte est journalisée, et des vues SQL calculent des indicateurs de qualité des données (taux de succès par site, fraîcheur, complétude), suivis par des KPI documentés et un tableau de bord Power BI. API FastAPI et dashboard en ligne, 61 tests PyTest sur une base réelle, CI GitHub Actions et collecte horaire planifiée.",
+        en: "Multi-site price scraper based on the structured data of each page (JSON-LD, microdata), with Telegram alerts when a price crosses a threshold and anti-bot page detection. Every collection run is logged, and SQL views compute data quality indicators (success rate per site, freshness, completeness), tracked through documented KPIs and a Power BI dashboard. FastAPI API and online dashboard, 61 PyTest tests on a real database, GitHub Actions CI and hourly scheduled collection.",
       },
       flows: [
         {
           label: "Pipeline",
           steps: [{ fr: "Sites marchands", en: "Retail sites" }, "Scraper JSON-LD", "PostgreSQL", "FastAPI + dashboard", { fr: "Alerte Telegram", en: "Telegram alert" }],
         },
+        {
+          label: "Data",
+          steps: [{ fr: "Journal des collectes", en: "Collection log" }, { fr: "Vues SQL qualité", en: "SQL quality views" }, "KPI", "Power BI"],
+        },
         { label: "CI", steps: ["git push", "Lint + tests", "Build Docker"] },
       ],
-      stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "GitHub Actions", "Kubernetes", "PyTest", "Telegram API"],
+      stack: ["Python", "SQL", "PostgreSQL", "Power BI", "FastAPI", "Docker", "GitHub Actions", "Kubernetes", "PyTest", "Telegram API"],
       github: "https://github.com/ccao94/monitoring",
       demo: "https://price-monitor-gj4e.onrender.com/",
       demoNote: { fr: "Hébergement gratuit, premier chargement jusqu'à 1 minute", en: "Free hosting, first load can take up to 1 minute" },
